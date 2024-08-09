@@ -8,11 +8,11 @@ The main purpose of this library is to help understanding how asf/amc file works
 
 Demo using PyGame and PyOpenGL:
 
-![3D Demo](demo.gif)
+![3D Demo](plot/demo.gif)
 
 Demo using Matplotlib:
 
-![Static Demo](demo_static.png)
+![Static Demo](plot/demo_static.png)
 
 ## Usage
 
