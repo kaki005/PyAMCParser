@@ -1,3 +1,3 @@
-from .amc_parser import parse_amc, parse_asf, tensor_to_amc
+from .amc_parser import amc_to_tensor, parse_amc, parse_asf
 from .Joint import *
 from .Viewer import *

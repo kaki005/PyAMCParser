@@ -150,14 +150,6 @@ def amc_to_tensor(motions: List[Dict[str, List[float]]], joints: Dict[str, Joint
     tensors.append([j.coordinate for j in joints.values()])
   return np.array(tensors).squeeze()
 
-def tensor_to_amc(tensor:np.array, joint_list: List[str])->List[Dict[str, List[float]]]:
-  motions: List[Dict[str, List[float]]] = []
-  for frame in tensor:
-    joint_degree = {}
-    for joint, value in zip(joint_list, frame):
-      joint_degree[joint] = value
-    motions.append(joint_degree)
-  return motions
 
 
 
