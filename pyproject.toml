@@ -16,5 +16,18 @@ transforms3d = "^0.4.2"
 
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amc_parser"
+description = "A lightweight library to parse and visualize asf/amc files"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dynamic = ["version"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
