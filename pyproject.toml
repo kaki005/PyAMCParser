@@ -28,6 +28,3 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dynamic = ["version"]
-
-[tool.setuptools]
-package-dir = {"" = "src"}
