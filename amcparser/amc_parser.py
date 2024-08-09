@@ -126,7 +126,7 @@ def parse_amc(file_path):
     joint_degree = {}
     while True:
       line, idx = read_line(content, idx)
-      if line is None:
+      if line == "":
         EOF = True
         break
       if line[0].isnumeric():
@@ -135,7 +135,7 @@ def parse_amc(file_path):
     frames.append(joint_degree)
   return frames
 
-def amc_to_tensor(motions: List[Dict[str, List[float]]])-> np.array:
+def amc_to_tensor(motions: List[Dict[str, List[float]]], joints: Dict[str, Joint])-> np.array:
   """amcファイルから直接モーションを生成します。
 
   Args:
@@ -144,9 +144,11 @@ def amc_to_tensor(motions: List[Dict[str, List[float]]])-> np.array:
   Returns:
       np.array: (frame, 部位, 座標)
   """
-  return np.array([
-    list(frame.values()) for frame in motions
-  ])
+  tensors = []
+  for frame in motions:
+    joints["root"].set_motion(frame)
+    tensors.append([j.coordinate for j in joints.values()])
+  return np.array(tensors).squeeze()
 
 def tensor_to_amc(tensor:np.array, joint_list: List[str])->List[Dict[str, List[float]]]:
   motions: List[Dict[str, List[float]]] = []

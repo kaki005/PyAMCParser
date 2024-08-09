@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -34,9 +34,12 @@ class Joint:
     """
     self.name = name
     self.direction = np.reshape(direction, [3, 1])
+    """Default direction of the joint(bone). The motions are all defined"""
     self.length = length
+    """Length of the bone."""
     axis = np.deg2rad(axis)
     self.C = euler2mat(*axis)
+    """rotation matrix from Euler angles and axis sequence."""
     self.Cinv = np.linalg.inv(self.C)
     self.limits = np.zeros([3, 2])
     for lm, nm in zip(limits, dof):
@@ -68,6 +71,10 @@ class Joint:
       self.coordinate = self.parent.coordinate + self.length * self.matrix.dot(self.direction)
     for child in self.children:
       child.set_motion(motion)
+
+
+
+
 
   def draw(self):
     joints = self.to_dict()

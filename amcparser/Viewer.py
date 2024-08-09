@@ -1,4 +1,5 @@
 import time
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pygame
@@ -6,9 +7,11 @@ import transforms3d.euler as euler
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+from .Joint import Joint
+
 
 class Viewer:
-  def __init__(self, joints=None, motions=None):
+  def __init__(self, joints: Dict[str, Joint]):
     """
     Display motion sequence in 3D.
 
@@ -22,7 +25,6 @@ class Viewer:
 
     """
     self.joints = joints
-    self.motions = motions
     self.frame = 0 # current frame of the motion sequence
     self.playing = False # whether is playing the motion sequence
     self.fps = 120 # frame rate
@@ -59,7 +61,7 @@ class Viewer:
       self.screen_size, pygame.DOUBLEBUF | pygame.OPENGL
     )
     pygame.display.set_caption(
-      'AMC Parser - frame %d / %d' % (self.frame, len(self.motions))
+      'AMC Parser - frame %d / %d' % (self.frame, 0)
     )
     self.clock = pygame.time.Clock()
 
@@ -85,7 +87,7 @@ class Viewer:
     glPointSize(10)
     glLineWidth(2.5)
 
-  def process_event(self):
+  def process_event(self, amc_motions: List[Dict[str, List[float]]]):
     """
     Handle user interface events: keydown, close, dragging.
 
@@ -149,10 +151,10 @@ class Viewer:
     if pressed[pygame.K_COMMA]:
       self.frame -= 1
       if self.frame < 0:
-        self.frame = len(self.motions) - 1
+        self.frame = len(amc_motions) - 1
     if pressed[pygame.K_PERIOD]:
       self.frame += 1
-      if self.frame >= len(self.motions):
+      if self.frame >= len(amc_motions):
         self.frame = 0
     # global rotation
     grx = euler.euler2mat(self.global_rx, 0, 0)
@@ -171,17 +173,6 @@ class Viewer:
     """
     self.joints = joints
 
-  def set_motion(self, motions):
-    """
-    Set motion sequence for viewer.
-
-    Paramter
-    --------
-    motions: List returned from `amc_parser.parse_amc. Each element is a dict
-    with joint names as keys and relative rotation degree as values.
-
-    """
-    self.motions = motions
 
   def draw(self):
     """
@@ -216,21 +207,44 @@ class Viewer:
         glVertex3f(*coord_y)
     glEnd()
 
-  def run(self):
-    """
-    Main loop.
+  def run_with_amc(self, amc_motions: List[Dict[str, List[float]]]):
+    """ amc形式の再生を行います。
 
+    Args:
+        amc_motions (_type_): _description_
     """
     while not self.done:
-      self.process_event()
-      self.joints['root'].set_motion(self.motions[self.frame])
+      self.process_event(amc_motions)
+      self.joints['root'].set_motion(amc_motions[self.frame])
       if self.playing:
         self.frame += 1
-        if self.frame >= len(self.motions):
+        if self.frame >= len(amc_motions):
           self.frame = 0
       self.draw()
       pygame.display.set_caption(
-        'AMC Parser - frame %d / %d' % (self.frame, len(self.motions))
+        'AMC Parser - frame %d / %d' % (self.frame, len(amc_motions))
+      )
+      pygame.display.flip()
+      self.clock.tick(self.fps)
+    pygame.quit()
+
+  def run_with_tensor(self, tensor_motions: np.ndarray):
+    """ 3次元テンソルのデータから再生を行います。
+
+    Args:
+        amc_motions (_type_): _description_
+    """
+    while not self.done:
+      self.process_event(tensor_motions)
+      for name, coordinate in zip(self.joints.keys(), tensor_motions[self.frame]):
+        self.joints[name].coordinate = coordinate
+      if self.playing:
+        self.frame += 1
+        if self.frame >= len(tensor_motions):
+          self.frame = 0
+      self.draw()
+      pygame.display.set_caption(
+        'AMC Parser - frame %d / %d' % (self.frame, len(tensor_motions))
       )
       pygame.display.flip()
       self.clock.tick(self.fps)
