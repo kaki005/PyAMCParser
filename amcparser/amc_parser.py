@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -134,6 +134,29 @@ def parse_amc(file_path):
       joint_degree[line[0]] = [float(deg) for deg in line[1:]]
     frames.append(joint_degree)
   return frames
+
+def amc_to_tensor(motions: List[Dict[str, List[float]]])-> np.array:
+  """amcファイルから直接モーションを生成します。
+
+  Args:
+      motions (List[Dict[str, List[float]]]): [（key:joint, value: senor value at the frame）foreach frame]
+
+  Returns:
+      np.array: (frame, 部位, 座標)
+  """
+  return np.array([
+    list(frame.values()) for frame in motions
+  ])
+
+def tensor_to_amc(tensor:np.array, joint_list: List[str])->List[Dict[str, List[float]]]:
+  motions: List[Dict[str, List[float]]] = []
+  for frame in tensor:
+    joint_degree = {}
+    for joint, value in zip(joint_list, frame):
+      joint_degree[joint] = value
+    motions.append(joint_degree)
+  return motions
+
 
 
 def test_all():
