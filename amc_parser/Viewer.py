@@ -1,9 +1,8 @@
-import pygame
-import numpy as np
 import time
-import transforms3d.euler as euler
-from amc_parser import *
 
+import numpy as np
+import pygame
+import transforms3d.euler as euler
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
@@ -236,12 +235,3 @@ class Viewer:
       pygame.display.flip()
       self.clock.tick(self.fps)
     pygame.quit()
-
-
-if __name__ == '__main__':
-  asf_path = './data/01/01.asf'
-  amc_path = './data/01/01_01.amc'
-  joints = parse_asf(asf_path)
-  motions = parse_amc(amc_path)
-  v = Viewer(joints, motions)
-  v.run()

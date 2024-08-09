@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from transforms3d.euler import euler2mat
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
+from transforms3d.euler import euler2mat
 
 
 class Joint:
@@ -264,12 +264,12 @@ def test_all():
     #     joints['root'].set_motion(motion)
 
 
-if __name__ == '__main__':
-  test_all()
-  # asf_path = './133.asf'
-  # amc_path = './133_01.amc'
-  # joints = parse_asf(asf_path)
-  # motions = parse_amc(amc_path)
-  # frame_idx = 0
-  # joints['root'].set_motion(motions[frame_idx])
-  # joints['root'].draw()
+# if __name__ == '__main__':
+#   test_all()
+#   # asf_path = './133.asf'
+#   # amc_path = './133_01.amc'
+#   # joints = parse_asf(asf_path)
+#   # motions = parse_amc(amc_path)
+#   # frame_idx = 0
+#   # joints['root'].set_motion(motions[frame_idx])
+#   # joints['root'].draw()
