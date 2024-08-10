@@ -4,13 +4,14 @@ version = "0.1.0"
 description = "parse amc and asf"
 authors = [{ name = "kaki005", email = "u097498f@ecs.osaka-u.ac.jp" }]
 readme = "README.md"
-requires-python = ">= 3.12"
+requires-python = ">= 3.10"
 dependencies = [
     "numpy>=2.0.1",
     "pyopengl>=3.1.7",
     "matplotlib>=3.9.1",
     "transforms3d>=0.0.4",
     "pygame>=2.6.0",
+    "pre-commit>=3.8.0",
 ]
 
 

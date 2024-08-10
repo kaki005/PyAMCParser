@@ -10,16 +10,26 @@
 #   universal: false
 
 -e file:.
+cfgv==3.4.0
+    # via pre-commit
 contourpy==1.2.1
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
+distlib==0.3.8
+    # via virtualenv
+filelock==3.15.4
+    # via virtualenv
 fonttools==4.53.1
     # via matplotlib
+identify==2.6.0
+    # via pre-commit
 kiwisolver==1.4.5
     # via matplotlib
 matplotlib==3.9.1.post1
     # via amcparser
+nodeenv==1.9.1
+    # via pre-commit
 numpy==2.0.1
     # via amcparser
     # via contourpy
@@ -29,6 +39,10 @@ packaging==24.1
     # via matplotlib
 pillow==10.4.0
     # via matplotlib
+platformdirs==4.2.2
+    # via virtualenv
+pre-commit==3.8.0
+    # via amcparser
 pygame==2.6.0
     # via amcparser
 pyopengl==3.1.7
@@ -37,7 +51,11 @@ pyparsing==3.1.2
     # via matplotlib
 python-dateutil==2.9.0.post0
     # via matplotlib
+pyyaml==6.0.2
+    # via pre-commit
 six==1.16.0
     # via python-dateutil
 transforms3d==0.4.2
     # via amcparser
+virtualenv==20.26.3
+    # via pre-commit
