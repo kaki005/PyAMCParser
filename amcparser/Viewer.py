@@ -19,10 +19,13 @@ from OpenGL.GL import (
     GL_LIGHTING,
     glLightfv,
     glPointSize,
+    GLfloat,
     GL_COLOR_BUFFER_BIT,
+    GL_AMBIENT_AND_DIFFUSE,
     GL_LIGHT0,
     GL_AMBIENT,
     glEnd,
+    GL_FRONT_AND_BACK,
     glBegin,
     GL_DEPTH_BUFFER_BIT,
     GL_POINTS,
@@ -33,6 +36,10 @@ from OpenGL.GL import (
 from OpenGL.GLU import gluPerspective
 
 from .Joint import Joint
+
+red: GLfloat = [0.8, 0.2, 0.2, 1.0]  # 赤色
+green: GLfloat = [0.2, 0.8, 0.2, 1.0]  # 緑色
+yellow: GLfloat = [1.0, 1.0, 0.8]  # yellow
 
 
 class Viewer:
@@ -196,6 +203,7 @@ class Viewer:
 
         """
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, yellow)
 
         glBegin(GL_POINTS)
         for j in self.joints.values():
