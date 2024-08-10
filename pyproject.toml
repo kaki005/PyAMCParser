@@ -1,30 +1,19 @@
-[tool.poetry]
+[project]
 name = "amcparser"
 version = "0.1.0"
-description = ""
-authors = ["kaki005 <u097498f@ecs.osaka-u.ac.jp>"]
+description = "parse amc and asf"
+authors = [{ name = "kaki005", email = "u097498f@ecs.osaka-u.ac.jp" }]
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.12"
-numpy = "^2.0.1"
-pyopengl = "^3.1.7"
-matplotlib = "^3.9.1.post1"
-transform3d = "^0.0.4"
-pygame = "^2.6.0"
-transforms3d = "^0.4.2"
+requires-python = ">= 3.12"
+dependencies = [
+    "numpy>=2.0.1",
+    "pyopengl>=3.1.7",
+    "matplotlib>=3.9.1",
+    "transforms3d>=0.0.4",
+    "pygame>=2.6.0",
+]
 
 
 [build-system]
-requires = ["setuptools", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "amcparser"
-description = "A lightweight library to parse and visualize asf/amc files"
-readme = "README.md"
-license = {file = "LICENSE"}
-classifiers = [
-    "Programming Language :: Python :: 3",
-]
-dynamic = ["version"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
