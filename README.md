@@ -69,8 +69,6 @@ NOTE that my implementation of changing view is inefficient (but fluent enough) 
 * pygame
 * pyopengl
 
-All the dependencies are available via `pip install`.
-
 ## One More Thing
 
 If this repo is used in any publications or projects, please let me know. I would be happy and encouraged =)
