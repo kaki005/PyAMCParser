@@ -36,19 +36,31 @@ if __name__ == '__main__':
   amc_path = './data/01/01_01.amc'
   joints = parse_asf(asf_path)
   motions = parse_amc(amc_path)
-  v = Viwer(joints, motions)
-  v.run()
+  v = Viwer(joints)
+  v.run_with_amc(motions)
 ```
-
 - Key
-* `WASD` to move around.
-* `QE` to zoom in/out.
-* `↑ ↓ ← →` to rotate.
-* `LEFT MOUSE BUTTON` to drag.
-* `RETURN` to reset camera view.
-* `SPACE` to start/pause.
-* `,` and `.` to rewind and forward.
+   - `WASD` to move around.
+   - `QE` to zoom in/out.
+   - `↑ ↓ ← →` to rotate.
+   - `LEFT MOUSE BUTTON` to drag.
+   - `RETURN` to reset camera view.
+   - `SPACE` to start/pause.
+   - `,` and `.` to rewind and forward.
 
+ ### Convert to Tensor
+ - You can convert from amc format to numpy 3D array (time, sensor, coordinate).
+ - You can play motion from numpy array.
+```python
+  asf_path = './data/01/01.asf'
+  amc_path = './data/01/01_01.amc'
+  joints = parse_asf(asf_path)
+  motions = parse_amc(amc_path)
+  tensor = amc_to_tensor(motions, joints)
+  v = Viewer(joints)
+  v.run_with_tensor(tensor)
+
+```
 ## Dependencies
 
 * numpy
@@ -56,7 +68,3 @@ if __name__ == '__main__':
 * matplotlib
 * pygame
 * pyopengl
-
-## One More Thing
-
-If this repo is used in any publications or projects, please let me know. I would be happy and encouraged =)
